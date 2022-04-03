@@ -16,18 +16,20 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
     std::ifstream input(argv[1]);
+
     // Get n (number of elements).
     std::string line;
     std::getline(input, line);
     int n = std::stoi(line);
+
     // Get arr (all other elements).
     std::vector<int> arr;
     arr.reserve(n);
     int counter = 0;
     for (std::string line; std::getline(input, line); ++counter) {
         arr.push_back(std::stoi(line));
-        std::cout << arr.back() << std::endl;
     }
+
     // Check that first value n equals length of arr.
     // No additional error checking is done.
     if (n != counter) {
@@ -35,14 +37,16 @@ int main(int argc, char *argv[]) {
             << n << " but found " << counter << std::endl;
         exit(1);
     }
+
     std::cout << "Input size n=" << n << std::endl;
 
     // Pass arr to subsetA()
     auto A = subsetA(arr);
 
-    // Print output
+    // Print answer
     for (auto iter = A.begin(); iter != A.end(); ++iter) {
         std::cout << *iter << std::endl;
     }
+
     return 0;
 }
