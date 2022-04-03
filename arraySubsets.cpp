@@ -5,13 +5,82 @@
 #include <map>
 #include <algorithm>
 
+// Bundle up identical numbers into single items with weight and cost.
 struct Number {
     int occurances = 0;
     int totalValue = 0;
 };
 
-// Recursive 0-1 knapsack.
+// Tracks total values and indexes of itesm in knapsack.
+struct KnapsackElement {
+    int64_t value = -1;
+    std::vector<int> indexes;
+};
+
+// 0-1 recursive knapsack.
+// Return KnapsackElement containing sum and indexes of elements.
+KnapsackElement knapsackRec(int W, std::vector<int> wt, std::vector<int> val,
+                int n, KnapsackElement** dp)
+{
+    // base condition
+    if (n < 0) {
+        KnapsackElement baseCondition;
+        baseCondition.value = 0;
+        return baseCondition;
+    }
+    if (dp[n][W].value != -1) {
+        return dp[n][W];
+    }
+    if (wt[n] > W) {
+        // Store the value of function call
+        // stack in table before return.
+        dp[n][W] = knapsackRec(W, wt, 
+                               val, n - 1,
+                               dp);
+        return dp[n][W];
+    }
+    else {
+        // Store value in a table before return.
+        KnapsackElement element1 = knapsackRec(W - wt[n], wt, val, n - 1, dp);
+        element1.value += val[n];
+        element1.indexes.push_back(n);
+
+        KnapsackElement element2 = knapsackRec(W, wt, val, n - 1, dp);
+
+        if (element1.value > element2.value) {
+             dp[n][W] = element1;
+        }
+        else {
+             dp[n][W] = element2;
+        }
+        return dp[n][W];
+    }
+}
+
+// 0-1 knapsack driver.
 // Store indexes of items in indexes.
+void knapsackDriver(int W, std::vector<int> wt, std::vector<int> val, int n, std::vector<int>& indexes)
+{
+    // Double pointer to declare table dynamically
+    KnapsackElement** dp;
+    dp = new KnapsackElement*[n];
+  
+    // Create table.
+    for (int i = 0; i < n; i++) {
+        dp[i] = new KnapsackElement[W + 1];
+    }
+  
+    // Initialize table with values of -1
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < W + 1; ++j) {
+            dp[i][j].value = -1;
+        }
+    }
+    KnapsackElement result = knapsackRec(W, wt, val, n - 1, dp);
+    indexes = result.indexes;    
+    return;
+}
+
 int64_t knapsack(int weight, const std::vector<int> wts, const std::vector<int> val, int n,
     std::vector<int>& indexes) {    
     
@@ -128,7 +197,7 @@ std::vector<int> subsetA(std::vector<int> arr) {
         std::cout << "Trying size: " << sizeA << std::endl;
         a.clear();
         std::vector<int> indexes;
-        knapsack(sizeA, weights, values, n-1, indexes);
+        knapsackDriver(sizeA, weights, values, n, indexes);
         for (auto iter = indexes.begin(); iter != indexes.end(); ++iter) {
             int num = number[*iter];
             for(int i = 0; i < m[num].occurances; ++i) {
