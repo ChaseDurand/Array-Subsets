@@ -4,9 +4,7 @@
 
 // Given arr, return A
 std::vector<int> subsetA(std::vector<int> arr) {
-    ////////////////////////
-    // Your solution here //
-    ////////////////////////
+
 }
 
 int main(int argc, char *argv[]) {
