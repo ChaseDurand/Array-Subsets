@@ -81,81 +81,18 @@ void knapsackDriver(int W, std::vector<int> wt, std::vector<int> val, int n, std
     return;
 }
 
-int64_t knapsack(int weight, const std::vector<int> wts, const std::vector<int> val, int n,
-    std::vector<int>& indexes) {    
-    
-    if ((n < 0) || (weight == 0)) {
-        return 0;
-    }
-
-    std::vector<int> tmp1i = indexes;
-    std::vector<int> tmp2i = indexes;
-
-    // Nth element is excluded.
-    int64_t exclude = knapsack(weight, wts, val, n-1, tmp1i);
-
-    // Nth element is included.
-    int64_t include = 0;
-    if (weight >= wts[n]) {
-        tmp2i.push_back(n);
-        include = knapsack(weight - wts[n], wts, val, n-1, tmp2i) + val[n];
-    }
-
-    if (include >= exclude) {
-        indexes = tmp2i;
-    }
-    else {
-        indexes = tmp1i;
-    }
-
-    return  std::max(include, exclude);
-}
-
-// Check if solution meets:
-// * The intersection of A and B is null.
-// * The union A and B is equal to the original array.
-// * The sum of A's elements is greater than the sum of B's elements.
-// Does not check if number of elements in A is minimal.
-bool checkSolution(std::vector<int> arr, std::vector<int> a) {
-    // Create b
-    std::vector<int> b = arr;
-
-    b.erase( std::remove_if( b.begin(), b.end(),
-    [&](auto x){return find( a.begin(), a.end(), x) != end(a);}), end(b) );
-
-    std::sort(a.begin(), a.end());
-    std::sort(b.begin(), b.end());
-
-    // Check intersection
-    std::vector<int> intersection;
-    std::set_intersection(a.begin(),a.end(),
-                        b.begin(),b.end(),
-                        std::back_inserter(intersection));
-    if(intersection.size()) {
-        return false;
-    }
-
-    // Check union
-    std::vector<int> arrUnion;
-    std::merge(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(arrUnion));
-    if (arr != arrUnion) {
-        return false;
-    }
-
-    // Check sum
+// Check if sum A > sumTarget
+// sumTarget is half of sum arr
+bool checkSum(int64_t sumTarget, std::vector<int> a){
     int64_t sumA = std::accumulate(a.begin(), a.end(), (int64_t)0);
-    int64_t sumB = std::accumulate(b.begin(), b.end(), (int64_t)0);
-    if (sumA <= sumB) {
-        // Sum A is not greater than sum B
-        return false;
-    }
-
-    return true;    
+    return(sumA > sumTarget);
 }
 
 // Given arr, return A
 std::vector<int> subsetA(std::vector<int> arr) {
     std::sort(arr.begin(), arr.end());
+    int64_t sumTarget = std::accumulate(arr.begin(), arr.end(), (int64_t)0) / (int64_t)2;
+
     // Create map of <number> to <sum, occurances>
     std::map<int, Number> m;
 
@@ -204,7 +141,7 @@ std::vector<int> subsetA(std::vector<int> arr) {
                 a.push_back(num);
             }
         }
-    } while (!checkSolution(arr, a));
+    } while (!checkSum(sumTarget, a));
 
     reverse(a.begin(), a.end());
     return a;
