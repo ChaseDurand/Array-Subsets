@@ -36,3 +36,6 @@
 
 # Symbol tables
 *.o.dSYM
+
+# build directory
+build
