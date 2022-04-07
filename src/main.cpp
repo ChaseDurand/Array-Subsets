@@ -1,11 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-
-// Given arr, return A
-std::vector<int> subsetA(std::vector<int> arr) {
-
-}
+#include "arraySubsets.cpp"
 
 int main(int argc, char *argv[]) {
     // Get path to input as argument.
@@ -41,10 +34,17 @@ int main(int argc, char *argv[]) {
     // Pass arr to subsetA()
     auto A = subsetA(arr);
 
+    std::ofstream output;
+    output.open("arraySubsetsOutput.txt");
+
+
     // Print answer
     for (auto iter = A.begin(); iter != A.end(); ++iter) {
         std::cout << *iter << std::endl;
+        output << *iter << std::endl;
     }
+
+    output.close();
 
     return 0;
 }

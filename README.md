@@ -1,10 +1,5 @@
 # Array-Subsets
-
 Array Subsets is a problem that appeared in a programming assessment for a large tech company administered via HackerRank. The HackerRank interface graded the problem incorrectly and would accept answers that failed to meet the problem's defined restrictions.
-
-[`arraySubsets.cpp`](/arraySubsets.cpp) contains a completed solution.
-
-[`arraySubsetsBlank.cpp`](/arraySubsetsBlank.cpp) contains blank space for a solution.
 
 ## Original Problem
 ___
@@ -160,5 +155,22 @@ With this restriction in mind, the next step might be to augment this approach w
 ## Solution
 One method is to treat this like a 0-1 knapsack problem. Identical numbers are bundled up into a single element of cost/weight (number of occurances) and value (sum of each number's value). Creating these bundles allows us to evaluate each group of numbers with an all or nothing approach, which also fulfils the null intersection requirement. The max capacity of our knapsack is the number of elements in A. We don't know what this is, only that it must be minimized, so we have to run a knapsack algorithm starting with a capacity of 1 and increasing the capcity until a solution is found. Each knapsack algorithm will give us the elements that give the maximum sum of A per given size of A. These elements will be checked against the conditions and the size will increase until a solution is found.
 
-## Inputs
+## Building
+Build executable and tests:
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+Output:
+```
+.
+├── build
+│   ├── arraysubsets.o
+│   └── tests
+│       └── tests.o
+```
+
+## Test Cases
 Inputs [`003`](/inputs/input003.txt) and [`005`](/inputs/input005.txt) are from the original HackerRank problem. All others are custom.
