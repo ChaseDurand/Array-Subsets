@@ -7,7 +7,7 @@
 #include "arraySubsets.hpp"
 
 KnapsackElement knapsack(long int W, std::vector<int> wt, std::vector<int> val,
-                long int n, std::vector<std::vector<KnapsackElement>>& cache)
+                long int n, std::map<long int, std::map<long int, KnapsackElement>>& cache)
 {
     // base condition
     if (n < 0) {
@@ -86,18 +86,31 @@ std::vector<int> subsetA(std::vector<int> arr) {
     // Check if solution for A is valid.
     // If so, we're done.
     // If not, increase size of A.
+
     std::vector<int> a; // Holds answers
+    long int sizeA = 1;
+
     // Memoization table
-    std::vector<std::vector<KnapsackElement>> cache(n,
-        std::vector<KnapsackElement>(1, KnapsackElement()));
-    long int sizeA = 0;
+    // Create map from W to W-1
+    std::map<long int, std::map<long int, KnapsackElement>> cache;
+    for (long int i = 0; i < n; ++i) {
+        for (long int j = 0; j <= sizeA; ++j) {
+            cache[i][j] = KnapsackElement();
+        }
+    }
+
     do
     {
-        sizeA++;
-        // Increase memoization table size
-        for (auto iter = cache.begin(); iter != cache.end(); ++iter) {
-            iter->push_back(KnapsackElement());
+        
+        // Increase memoization table size and remove W-2 values
+        if (sizeA > 1) {
+            for (long int i = 0; i < n; ++i) {
+                auto it = cache[i].find(sizeA-2);
+                cache[i].erase(it);
+                cache[i][sizeA] = KnapsackElement();
+            }
         }
+
         std::cout << "Trying size: " << sizeA << std::endl;
         a.clear();
         std::vector<int> indexes = knapsack(sizeA, weights, values, n-1, cache).indexes;
@@ -107,6 +120,7 @@ std::vector<int> subsetA(std::vector<int> arr) {
                 a.push_back(num);
             }
         }
+        sizeA++;
     } while (!checkSum(sumTarget, a));
 
     return a;
