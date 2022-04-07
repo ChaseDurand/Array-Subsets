@@ -14,7 +14,7 @@ struct KnapsackElement {
 // Return KnapsackElement containing sum and indexes of elements.
 KnapsackElement knapsack(long int W, std::vector<int> wt,
                             std::vector<int> val,
-                            long int n, std::map<long int, std::map<long int, KnapsackElement>>& dp);
+                            long int n, std::unordered_map<long int, std::unordered_map<long int, KnapsackElement>>& dp);
 
 // Check if sum A > sumTarget
 // sumTarget is half of sum arr

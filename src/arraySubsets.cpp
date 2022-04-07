@@ -2,12 +2,12 @@
 #include <fstream>
 #include <vector>
 #include <numeric>
-#include <map>
+#include <unordered_map>
 #include <algorithm>
 #include "arraySubsets.hpp"
 
 KnapsackElement knapsack(long int W, std::vector<int> wt, std::vector<int> val,
-                long int n, std::map<long int, std::map<long int, KnapsackElement>>& cache)
+                long int n, std::unordered_map<long int, std::unordered_map<long int, KnapsackElement>>& cache)
 {
     // base condition
     if (n < 0) {
@@ -54,7 +54,7 @@ std::vector<int> subsetA(std::vector<int> arr) {
     int64_t sumTarget = std::accumulate(arr.begin(), arr.end(), (int64_t)0) / (int64_t)2;
 
     // Create map of <number> to <sum, occurances>
-    std::map<int, Number> m;
+    std::unordered_map<int, Number> m;
 
     for (auto iter = arr.begin(); iter != arr.end(); ++iter) {
         if(m.count(*iter)) {
@@ -92,7 +92,7 @@ std::vector<int> subsetA(std::vector<int> arr) {
 
     // Memoization table
     // Create map from W to W-1
-    std::map<long int, std::map<long int, KnapsackElement>> cache;
+    std::unordered_map<long int, std::unordered_map<long int, KnapsackElement>> cache;
     for (long int i = 0; i < n; ++i) {
         for (long int j = 0; j <= sizeA; ++j) {
             cache[i][j] = KnapsackElement();
@@ -101,7 +101,6 @@ std::vector<int> subsetA(std::vector<int> arr) {
 
     do
     {
-        
         // Increase memoization table size and remove W-2 values
         if (sizeA > 1) {
             for (long int i = 0; i < n; ++i) {
@@ -123,5 +122,6 @@ std::vector<int> subsetA(std::vector<int> arr) {
         sizeA++;
     } while (!checkSum(sumTarget, a));
 
+    sort(a.begin(), a.end());
     return a;
 }
