@@ -6,8 +6,8 @@
 #include <algorithm>
 #include "arraySubsets.hpp"
 
-KnapsackElement knapsack(int W, std::vector<int> wt, std::vector<int> val,
-                int n, std::vector<std::vector<KnapsackElement>>& cache)
+KnapsackElement knapsack(long int W, std::vector<int> wt, std::vector<int> val,
+                long int n, std::vector<std::vector<KnapsackElement>>& cache)
 {
     // base condition
     if (n < 0) {
@@ -72,7 +72,7 @@ std::vector<int> subsetA(std::vector<int> arr) {
 
     std::vector<int> number, values, weights;
 
-    int n = 0;
+    long int n = 0;
     for (auto iter = m.begin(); iter != m.end(); ++iter) {
         number.push_back(iter->first);
         values.push_back(iter->second.totalValue);
@@ -90,7 +90,7 @@ std::vector<int> subsetA(std::vector<int> arr) {
     // Memoization table
     std::vector<std::vector<KnapsackElement>> cache(n,
         std::vector<KnapsackElement>(1, KnapsackElement()));
-    int sizeA = 0;
+    long int sizeA = 0;
     do
     {
         sizeA++;

@@ -12,9 +12,9 @@ struct KnapsackElement {
 
 // 0-1 recursive knapsack with memoization.
 // Return KnapsackElement containing sum and indexes of elements.
-KnapsackElement knapsack(int W, std::vector<int> wt,
+KnapsackElement knapsack(long int W, std::vector<int> wt,
                             std::vector<int> val,
-                            int n, KnapsackElement** dp);
+                            long int n, KnapsackElement** dp);
 
 // Check if sum A > sumTarget
 // sumTarget is half of sum arr
