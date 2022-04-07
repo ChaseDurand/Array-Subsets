@@ -101403,3 +101403,26 @@ std::vector<int> out5 = {356,
                          500,
                          500,
                          500};
+
+std::vector<int> in6  = {9};
+
+std::vector<int> out6 = {9};
+
+std::vector<int> in7  = {5,
+                         5};
+
+std::vector<int> out7 = {5,
+                         5};
+
+std::vector<int> in8  = {10,
+                         10,
+                         5,
+                         5,
+                         10,
+                         11,
+                         5};
+
+std::vector<int> out8 = {10,
+                         10,
+                         10};
+

@@ -24,4 +24,16 @@ namespace tests{
     TEST_CASE ("Case 5") {
         REQUIRE (subsetA(in5) == out5);
     }
+
+    TEST_CASE ("Case 6") {
+        REQUIRE (subsetA(in6) == out6);
+    }
+
+    TEST_CASE ("Case 7") {
+        REQUIRE (subsetA(in7) == out7);
+    }
+
+    TEST_CASE ("Case 8") {
+        REQUIRE (subsetA(in8) == out8);
+    }
 }
