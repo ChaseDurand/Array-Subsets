@@ -49,6 +49,17 @@ bool checkSum(int64_t sumTarget, std::vector<int> a){
     return(sumA > sumTarget);
 }
 
+void writeResults(std::vector<int>::iterator iter, const std::vector<int>::iterator& end) {
+    std::ofstream output;
+    output.open("arraySubsetsOutput.txt");
+    while(iter != end) {
+        output << *iter << std::endl;
+        ++iter;
+    }
+    output.close();
+    return;
+}
+
 std::vector<int> subsetA(std::vector<int> arr) {
     std::sort(arr.begin(), arr.end());
     int64_t sumTarget = std::accumulate(arr.begin(), arr.end(), (int64_t)0) / (int64_t)2;
@@ -123,5 +134,8 @@ std::vector<int> subsetA(std::vector<int> arr) {
     } while (!checkSum(sumTarget, a));
 
     sort(a.begin(), a.end());
+
+    writeResults(a.begin(), a.end());
+
     return a;
 }

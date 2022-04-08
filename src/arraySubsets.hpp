@@ -20,5 +20,7 @@ KnapsackElement knapsack(long int W, std::vector<int> wt,
 // sumTarget is half of sum arr
 bool checkSum(int64_t sumTarget, std::vector<int> a);
 
+void writeResults(std::vector<int>::iterator iter, const std::vector<int>::iterator& end);
+
 // Given arr, return A
 std::vector<int> subsetA(std::vector<int> arr);
