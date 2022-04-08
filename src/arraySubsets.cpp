@@ -112,7 +112,7 @@ std::vector<int> subsetA(std::vector<int> arr) {
 
         std::cout << "Trying size: " << sizeA << std::endl;
         a.clear();
-        std::vector<int> indexes = knapsack(sizeA, weights, values, n-1, cache).indexes;
+        std::vector<int long> indexes = knapsack(sizeA, weights, values, n-1, cache).indexes;
         for (auto iter = indexes.begin(); iter != indexes.end(); ++iter) {
             int num = number[*iter];
             for(int i = 0; i < m[num].occurances; ++i) {

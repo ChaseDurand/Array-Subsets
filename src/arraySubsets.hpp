@@ -7,7 +7,7 @@ struct Number {
 // Tracks total values and indexes of itesm in knapsack.
 struct KnapsackElement {
     int64_t value = -1;
-    std::vector<int> indexes;
+    std::vector<long int> indexes;
 };
 
 // 0-1 recursive knapsack with memoization.
@@ -22,4 +22,3 @@ bool checkSum(int64_t sumTarget, std::vector<int> a);
 
 // Given arr, return A
 std::vector<int> subsetA(std::vector<int> arr);
-
