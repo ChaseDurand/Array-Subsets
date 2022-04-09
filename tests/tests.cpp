@@ -16,7 +16,7 @@ namespace tests{
         REQUIRE (subsetA(in3) == out3);
     }
 
-    // TODO
+    // Very very very memory intensive
     // TEST_CASE ("Case 4") {
     //     REQUIRE (subsetA(in4) == out4);
     // }

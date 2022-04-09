@@ -173,4 +173,4 @@ Output:
 ```
 
 ## Test Cases
-Inputs [`003`](/inputs/input003.txt) and [`005`](/inputs/input005.txt) are from the original HackerRank problem. All others are custom.
+Inputs [`003`](/inputs/input003.txt) and [`005`](/inputs/input005.txt) are from the original HackerRank problem. All others are custom. Input [`004`](/inputs/input004.txt) has 100,000 items and compute can be extremely memory intensive.
